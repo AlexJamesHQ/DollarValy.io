@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DollarValy - Dollar Bay Sell</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* iOS Color System */
+            --system-blue: #007AFF;
+            --system-green: #34C759;
+            --system-indigo: #5856D6;
+            --system-orange: #FF9500;
+            --system-pink: #FF2D55;
+            --system-purple: #AF52DE;
+            --system-red: #FF3B30;
+            --system-teal: #5AC8FA;
+            --system-yellow: #FFCC00;
+            
+            /* Light Mode Colors */
+            --light-primary: #000000;
+            --light-secondary: #8E8E93;
+            --light-tertiary: #C7C7CC;
+            --light-quaternary: #F2F2F7;
+            --light-background: #F2F2F7;
+            --light-card-bg: rgba(255, 255, 255, 0.8);
+            --light-card-border: rgba(255, 255, 255, 0.18);
+            
+            /* Dark Mode Colors */
+            --dark-primary: #FFFFFF;
+            --dark-secondary: #8E8E93;
+            --dark-tertiary: #48484A;
+            --dark-quaternary: #1C1C1E;
+            --dark-background: #000000;
+            --dark-card-bg: rgba(28, 28, 30, 0.8);
+            --dark-card-border: rgba(255, 255, 255, 0.08);
+            
+            /* Current Theme */
+            --primary: var(--light-primary);
+            --secondary: var(--light-secondary);
+            --tertiary: var(--light-tertiary);
+            --quaternary: var(--light-quaternary);
+            --background: var(--light-background);
+            --card-bg: var(--light-card-bg);
+            --card-border: var(--light-card-border);
+            --shadow-color: rgba(0, 0, 0, 0.05);
+            
+            /* Typography */
+            --font-stack: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+            
+            /* Spacing */
+            --base-radius: 24px;
+            --card-radius: 28px;
+            --element-radius: 12px;
+            --pill-radius: 50px;
+            
+            /* Transitions */
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        /* Dark Mode Variables */
+        body.dark-mode {
+            --primary: var(--dark-primary);
+            --secondary: var(--dark-secondary);
+            --tertiary: var(--dark-tertiary);
+            --quaternary: var(--dark-quaternary);
+            --background: var(--dark-background);
+            --card-bg: var(--dark-card-bg);
+            --card-border: var(--dark-card-border);
+            --shadow-color: rgba(0, 0, 0, 0.2);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-stack);
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--primary);
+            line-height: 1.5;
+            font-weight: 400;
+            transition: var(--transition-smooth);
+            min-height: 100vh;
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+        
+        /* iOS Style Toggle Switch */
+        .ios-toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px 16px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: var(--base-radius);
+            border: 1px solid var(--card-border);
+            margin-bottom: 20px;
+            max-width: 300px;
+            box-shadow: 0 4px 20px var(--shadow-color);
+        }
+        
+        .ios-toggle-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--system-blue);
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .ios-toggle-label i {
+            font-size: 18px;
+        }
+        
+        .ios-toggle {
+            position: relative;
+            width: 51px;
+            height: 31px;
+            margin-left: auto;
+            -webkit-appearance: none;
+            appearance: none;
+            background-color: var(--tertiary);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        
+        .ios-toggle:checked {
+            background-color: #34C759;
+        }
+        
+        .ios-toggle::before {
+            content: "";
+            position: absolute;
+            width: 27px;
+            height: 27px;
+            border-radius: 50%;
+            background-color: white;
+            top: 2px;
+            left: 2px;
+            transition: var(--transition-smooth);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .ios-toggle:checked::before {
+            transform: translateX(20px);
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* iOS Navigation Bar */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 12px 0;
+            background-color: rgba(242, 242, 247, 0.8);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+            transition: var(--transition-smooth);
+        }
+        
+        body.dark-mode header {
+            background-color: rgba(0, 0, 0, 0.8);
+            border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 16px;
+        }
+        
+        .logo-island {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            padding: 12px 24px;
+            border-radius: var(--pill-radius);
+            border: 1px solid var(--card-border);
+            box-shadow: 0 4px 20px var(--shadow-color);
+        }
+        
+        .logo-island i {
+            font-size: 20px;
+            color: var(--system-blue);
+        }
+        
+        .logo-island span {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin: 24px 0;
+        }
+        
+        /* Glassmorphism Cards */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: var(--card-radius);
+            padding: 28px;
+            box-shadow: 
+                0 4px 20px var(--shadow-color),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--card-border);
+            transition: var(--transition-smooth);
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 
+                0 8px 30px var(--shadow-color),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--primary);
+        }
+        
+        .card-title i {
+            font-size: 22px;
+            color: var(--system-blue);
+        }
+        
+        /* Payment Methods Grid */
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .payment-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 22px;
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition-smooth);
+        }
+        
+        body.dark-mode .payment-card {
+            background: rgba(255, 255, 255, 0.03);
+        }
+        
+        .payment-card:hover {
+            transform: translateY(-5px);
+            background: rgba(var(--system-blue-rgb, 0, 122, 255), 0.05);
+        }
+        
+        .payment-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .payment-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 122, 255, 0.1);
+            color: var(--system-blue);
+            font-size: 22px;
+        }
+        
+        .payment-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .payment-rate {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--system-green);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+        }
+        
+        .payment-rate span {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+        
+        .account-info {
+            background: rgba(0, 0, 0, 0.03);
+            border-radius: var(--element-radius);
+            padding: 16px;
+            margin: 16px 0;
+            font-family: 'SF Mono', 'Courier New', monospace;
+            font-size: 14px;
+            word-break: break-all;
+            border: 1px solid var(--tertiary);
+        }
+        
+        body.dark-mode .account-info {
+            background: rgba(255, 255, 255, 0.03);
+        }
+        
+        /* iOS Style Buttons */
+        .ios-button {
+            background-color: var(--system-blue);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: var(--pill-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ios-button:hover {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+        
+        .ios-button:active {
+            transform: scale(0.95);
+        }
+        
+        /* Instructions List */
+        .instruction-list {
+            list-style: none;
+        }
+        
+        .instruction-list li {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--tertiary);
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        
+        .instruction-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .instruction-list i {
+            color: var(--system-green);
+            font-size: 18px;
+            margin-top: 2px;
+        }
+        
+        /* Support Cards */
+        .support-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 24px;
+        }
+        
+        .support-card {
+            text-align: center;
+            padding: 28px;
+            border-radius: var(--card-radius);
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            transition: var(--transition-smooth);
+        }
+        
+        .support-card:hover {
+            transform: translateY(-5px);
+            background: rgba(var(--system-blue-rgb, 0, 122, 255), 0.05);
+        }
+        
+        .support-icon {
+            font-size: 40px;
+            color: var(--system-blue);
+            margin-bottom: 16px;
+            height: 64px;
+            width: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 122, 255, 0.1);
+            border-radius: 50%;
+            margin: 0 auto 16px;
+        }
+        
+        .support-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+        
+        /* iOS Style Toast Notification */
+        .ios-toast {
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: rgba(40, 40, 40, 0.95);
+            backdrop-filter: blur(20px);
+            color: white;
+            padding: 14px 24px;
+            border-radius: var(--pill-radius);
+            font-weight: 600;
+            z-index: 1000;
+            opacity: 0;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        body.dark-mode .ios-toast {
+            background: rgba(60, 60, 60, 0.95);
+        }
+        
+        .ios-toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .ios-toast i {
+            color: var(--system-green);
+        }
+        
+        /* Footer */
+        footer {
+            margin-top: 40px;
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid var(--tertiary);
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--system-blue);
+            margin-bottom: 12px;
+        }
+        
+        .copyright {
+            color: var(--secondary);
+            font-size: 14px;
+            margin-top: 16px;
+        }
+
+        /* Terms Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            display: none;
+            z-index: 1999;
+        }
+
+        #terms-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px;
+            display: none;
+            z-index: 2000;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            border: 1px solid var(--card-border);
+        }
+
+        .modal-close {
+            float: right;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--secondary);
+        }
+
+        .modal-content h2 {
+            margin: 15px 0 10px;
+            font-size: 20px;
+            color: var(--system-blue);
+        }
+        .modal-content h3 {
+            margin: 10px 0 5px;
+            font-size: 16px;
+            color: var(--primary);
+        }
+        .modal-content p, .modal-content ul {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+        .modal-content ul {
+            margin-left: 20px;
+        }
+        
+        /* --- SIRI CHATBOT UI --- */
+        #siri-chat-wrapper {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        /* Siri Sphere Button */
+        #siri-trigger {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00d2ff, #3a7bd5, #cb2d3e, #ef473a);
+            background-size: 400% 400%;
+            animation: siri-gradient-btn 10s ease infinite;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 122, 255, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+            border: none;
+        }
+
+        @keyframes siri-gradient-btn {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        #siri-trigger:hover { transform: scale(1.1); }
+
+        /* Chat Window */
+        #chat-window {
+            width: 350px;
+            height: 520px;
+            background: var(--card-bg);
+            backdrop-filter: blur(25px);
+            border-radius: 30px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            margin-bottom: 20px;
+            animation: slideUp 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .chat-header {
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 0.5px solid var(--card-border);
+        }
+
+        .siri-icon-small {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00d2ff, #92fe9d, #ff5f6d, #ffc371);
+            background-size: 300% 300%;
+            animation: siri-gradient-small 3s ease infinite, siri-pulse 2s infinite ease-in-out;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+        }
+
+        @keyframes siri-gradient-small {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes siri-pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.7); }
+            50% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(0, 210, 255, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 210, 255, 0); }
+        }
+
+        .chat-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            scrollbar-width: none;
+        }
+
+        .message {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            line-height: 1.4;
+            position: relative;
+        }
+
+        .bot-msg {
+            background: var(--quaternary);
+            color: var(--primary);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .user-msg {
+            background: var(--system-blue);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .support-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 10px;
+            background: rgba(0,0,0,0.05);
+        }
+
+        .support-btn {
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 10px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .wa-btn { background: #25D366; }
+        .tg-btn { background: #0088cc; }
+
+        .chat-footer {
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        #user-input {
+            flex: 1;
+            padding: 12px 18px;
+            border-radius: 25px;
+            border: 1px solid var(--tertiary);
+            background: var(--background);
+            color: var(--primary);
+            outline: none;
+        }
+
+        .send-btn {
+            background: var(--system-blue);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 10px;
+        }
+        .chip {
+            background: rgba(0, 122, 255, 0.1);
+            color: var(--system-blue);
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            cursor: pointer;
+            border: 1px solid rgba(0, 122, 255, 0.2);
+            transition: 0.2s;
+        }
+        .chip:hover { background: var(--system-blue); color: white; }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 16px; }
+            .card { padding: 20px; border-radius: 22px; }
+            .payment-methods { grid-template-columns: 1fr; }
+            .support-section { grid-template-columns: 1fr; }
+            .ios-toggle-container { max-width: 100%; }
+            #chat-window { width: 90vw; right: 5vw; height: 70vh; }
+            #siri-chat-wrapper { bottom: 20px; right: 20px; }
+            #terms-modal { width: 95%; max-height: 85vh; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo-island">
+                    <i class="fas fa-coins"></i>
+                    <span>DollarValy</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="ios-toggle-container fade-in">
+            <div class="ios-toggle-label">
+                <i class="fab fa-apple"></i>
+                <span>Alex James</span>
+            </div>
+            <input type="checkbox" class="ios-toggle" id="modeToggle">
+        </div>
+        
+        <div class="main-content">
+            <section class="card fade-in">
+                <h2 class="card-title"><i class="fas fa-wallet"></i> Exchange Rates</h2>
+                <div class="payment-methods">
+                    <div class="payment-card">
+                        <div class="payment-header">
+                            <div class="payment-icon"><i class="fas fa-credit-card"></i></div>
+                            <div class="payment-name">PAYEER</div>
+                        </div>
+                        <div class="payment-rate">1 USD = <span>115 BDT</span></div>
+                        <p><strong>Account Number:</strong></p>
+                        <div class="account-info">P1132622601</div>
+                        <button class="ios-button copy-btn" data-clipboard-text="P1132622601">
+                            <i class="fas fa-copy"></i> Copy Account Number
+                        </button>
+                    </div>
+
+                    <div class="payment-card">
+                        <div class="payment-header">
+                            <div class="payment-icon"><i class="fab fa-btc"></i></div>
+                            <div class="payment-name">BNB Smart Chain</div>
+                        </div>
+                        <div class="payment-rate">1 USD = <span>120 BDT</span></div>
+                        <p><strong>Wallet Address:</strong></p>
+                        <div class="account-info">0x453997bd912a3269a947ac05b71fe19ae9f2d6d0</div>
+                        <button class="ios-button copy-btn" data-clipboard-text="0x453997bd912a3269a947ac05b71fe19ae9f2d6d0">
+                            <i class="fas fa-copy"></i> Copy Wallet Address
+                        </button>
+                    </div>
+
+                    <div class="payment-card">
+                        <div class="payment-header">
+                            <div class="payment-icon"><i class="fas fa-bolt"></i></div>
+                            <div class="payment-name">TRX Tron</div>
+                        </div>
+                        <div class="payment-rate">1 USD = <span>120 BDT</span></div>
+                        <p><strong>Wallet Address:</strong></p>
+                        <div class="account-info">TEzCrBYUK5dvu5n1KesUZSgC8jDMAur9ga</div>
+                        <button class="ios-button copy-btn" data-clipboard-text="TEzCrBYUK5dvu5n1KesUZSgC8jDMAur9ga">
+                            <i class="fas fa-copy"></i> Copy Wallet Address
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card fade-in">
+                <h2 class="card-title"><i class="fas fa-info-circle"></i> Payment Instructions</h2>
+                <ul class="instruction-list">
+                    <li><i class="fas fa-check-circle"></i> Send USD to any of the above accounts according to the exchange rate.</li>
+                    <li><i class="fas fa-check-circle"></i> After sending USD, take a clear screenshot of the transaction.</li>
+                    <li><i class="fas fa-check-circle"></i> Send the screenshot directly to admin on WhatsApp.</li>
+                    <li><i class="fas fa-check-circle"></i> Clicking on the username will take you directly to the WhatsApp account.</li>
+                    <li><i class="fas fa-check-circle"></i> Wait for confirmation from admin after sending the screenshot.</li>
+                    <li><i class="fas fa-check-circle"></i> Your BDT will be sent to your account after verification.</li>
+                </ul>
+                <a href="https://wa.me/8801977547920" class="ios-button" target="_blank" style="margin-top: 24px; text-decoration: none;">
+                    <i class="fab fa-whatsapp"></i> Send Screenshot to Admin
+                </a>
+            </section>
+
+            <section class="card fade-in">
+                <h2 class="card-title"><i class="fas fa-headset"></i> Support Center</h2>
+                <div class="support-section">
+                    <div class="support-card">
+                        <div class="support-icon"><i class="fab fa-telegram"></i></div>
+                        <h3 class="support-title">Telegram Support</h3>
+                        <a href="https://t.me/Alex_EMBUX7920" class="ios-button" target="_blank" style="margin-top: 16px; background-color: #0088CC; text-decoration: none;">
+                            <i class="fab fa-telegram"></i> @Alex_EMBUX7920
+                        </a>
+                    </div>
+                    <div class="support-card">
+                        <div class="support-icon"><i class="fab fa-whatsapp"></i></div>
+                        <h3 class="support-title">WhatsApp Support</h3>
+                        <a href="https://wa.me/8801977547920" class="ios-button" target="_blank" style="margin-top: 16px; background-color: #25D366; text-decoration: none;">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">DollarValy</div>
+            <p class="copyright">&copy; 2026 Powered by Alex James</p>
+        </div>
+    </footer>
+
+    <!-- Terms and Privacy Modal -->
+    <div class="modal-overlay" id="overlay" onclick="closeModal()"></div>
+    <div id="terms-modal">
+        <i class="fas fa-times modal-close" onclick="closeModal()"></i>
+        <div class="modal-content">
+            <h2>Terms of Use</h2>
+            <p>By using our dollar buy/sell service, you agree to the following terms:</p>
+            
+            <h3>Purpose</h3>
+            <p>This service is intended only for legal freelancing income or personal dollar exchange needs.</p>
+            
+            <h3>Minimum Age</h3>
+            <p>Use of this service is permitted for individuals over the age of 18. Transactions with minors are prohibited.</p>
+            
+            <h3>Prohibited Actions</h3>
+            <ul>
+                <li>Using this service for illegal or prohibited activities (gambling, betting, money laundering)</li>
+                <li>Providing fake or edited transaction screenshots</li>
+                <li>Using black money or illegal funds</li>
+                <li>Any fraudulent activity or scam attempts</li>
+            </ul>
+            
+            <h3>Liability</h3>
+            <p>We are not responsible for any loss due to incorrect information or wrong wallet address provided by users.</p>
+            
+            <h3>Account Blocking</h3>
+            <p>Violation of these rules will result in permanent account blocking without right to recover funds.</p>
+
+            <h2>🔒 Privacy Policy</h2>
+            <h3>Collected Data</h3>
+            <ul>
+                <li>Your name and phone number</li>
+                <li>Transaction IDs and screenshots</li>
+                <li>Wallet addresses and payment details</li>
+                <li>Chat history from WhatsApp/Telegram (for transaction proof only)</li>
+            </ul>
+
+            <h3>How We Use the Data</h3>
+            <p>To process your transactions securely, prevent fraud, and maintain service quality.</p>
+
+            <h3>Data Storage</h3>
+            <p>Your data is stored securely. We do not share your information with third parties without legal obligations.</p>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="ios-toast" id="iosToast">
+        <i class="fas fa-check-circle"></i>
+        <span>Copied to clipboard!</span>
+    </div>
+
+    <!-- Chatbot -->
+    <div id="siri-chat-wrapper">
+        <div id="chat-window">
+            <div class="chat-header">
+                <div class="siri-icon-small"></div>
+                <div>
+                    <div style="font-weight: 700; font-size: 14px;">Alex</div>
+                    <div style="font-size: 10px; color: var(--secondary);">AI Assistant</div>
+                </div>
+                <i class="fas fa-times" style="margin-left: auto; cursor: pointer;" onclick="toggleChat()"></i>
+            </div>
+            
+            <div class="chat-body" id="chat-body">
+                <div class="message bot-msg">Welcome to DollarValy. <br>যেকোনো সমস্যার দ্রুত সমাধানের জন্য অ্যাডমিনের সাথে সরাসরি কথা বলুন। যোগাযোগ করুন হোয়াটসঅ্যাপ অথবা টেলিগ্রামে।</div>
+            </div>
+
+            <div class="support-links">
+                <a href="https://wa.me/8801977547920" target="_blank" class="support-btn wa-btn"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                <a href="https://t.me/Alex_EMBUX7920" target="_blank" class="support-btn tg-btn"><i class="fab fa-telegram"></i> Telegram</a>
+            </div>
+
+            <div class="suggestions">
+                <div class="chip" onclick="handleChip('Admin')">Admin</div>
+                <div class="chip" onclick="handleChip('Dollar rate')">Dollar Rate</div>
+                <div class="chip" onclick="handleChip('⏰ Working time ')">⏰ Working time </div>
+                <div class="chip" onclick="handleChip('💳 Payment method')">💳 Payment method</div>
+                <div class="chip" onclick="handleChip('Terms and Privacy Policy')">Terms and Privacy Policy</div>
+                </div>
+
+            <div class="chat-footer">
+                <input type="text" id="user-input" placeholder="Type here...">
+                <button class="send-btn" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+
+        <button id="siri-trigger" onclick="toggleChat()">
+            <i class="fas fa-comment-dots" style="color: white; font-size: 24px;"></i>
+        </button>
+    </div>
+
+    <script>
+        // Mode Toggle
+        const modeToggle = document.getElementById('modeToggle');
+        const body = document.body;
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') { body.classList.add('dark-mode'); modeToggle.checked = true; }
+        modeToggle.addEventListener('change', () => {
+            body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+        });
+
+        // Toast & Copy
+        function showToast(message) {
+            const toast = document.getElementById('iosToast');
+            toast.querySelector('span').textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const text = this.getAttribute('data-clipboard-text');
+                navigator.clipboard.writeText(text);
+                showToast('Copied to clipboard!');
+            });
+        });
+
+        // Terms Modal Functions
+        function showTerms() {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('terms-modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('terms-modal').style.display = 'none';
+        }
+
+        // Chat Logic
+        const chatWindow = document.getElementById('chat-window');
+        const chatBody = document.getElementById('chat-body');
+        const userInput = document.getElementById('user-input');
+
+        function toggleChat() { 
+            chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex'; 
+        }
+
+        function handleChip(text) { 
+            userInput.value = text; 
+            sendMessage(); 
+        }
+
+        function sendMessage() {
+            const text = userInput.value.trim().toLowerCase();
+            if (!text) return;
+            
+            addMessage(userInput.value, 'user-msg');
+            userInput.value = '';
+
+            setTimeout(() => {
+                let response = "Please contact our Admin for any support or payment issues.";
+                
+                if (text.includes("hi") || text.includes("hello")) {
+                    response = "Hi! Welcome to DollarValy. How can I help you with dollar exchange today?";
+                } else if (text.includes("rate")) {
+                    response = "Check our updated rates on the main page. <p>Payeer<p> 1 USD = 115 BDT</p> <p>Binance<p>BNB: 1 USD = 120 BDT</p> <p>TRX: 1 USD = 120 BDT</p>";
+                } else if (text.includes("admin")) {
+                    response = "Contact Admin directly on <p>WhatsApp: +8801977547920</p> <p>Telegram: @Alex_EMBUX7920</p>";
+                } else if (text.includes("time")) {
+                    response = "⏰ Our working hours are from 10:00 AM to 11:00 PM.";
+                    } else if (text.includes("method")) {
+                    response = "Available payment methods are: bKash (বিকাশ) Rocket (রকেট) Nagad (নগদ) ডলার পাঠানোর জন্য আপনাকে ধন্যবাদ। আপনার পেমেন্টটি সফলভাবে সম্পন্ন করার জন্য অনুগ্রহ করে নিচের ধাপগুলো অনুসরণ করুন: <p>১. ডলার পাঠানোর পর ট্রানজ্যাকশনের একটি স্ক্রিনশট নিন।<p>২. আপনার অ্যাকাউন্ট নম্বর এবং স্ক্রিনশটটি আমাদের হোয়াটসঅ্যাপ নম্বর 01977547920-এ পাঠিয়ে দিন।<p>৩. টাকা গ্রহণের জন্য আপনার ব্যক্তিগত বিকাশ, রকেট অথবা নগদ নম্বরটি হোয়াটসঅ্যাপে মেসেজ করুন। (নম্বরটি কোন অপারেটরের তা অবশ্যই উল্লেখ করবেন)আমাদের অ্যাডমিন আপনার দেওয়া তথ্যগুলো যাচাই করে দ্রুত আপনার অ্যাকাউন্টে টাকা পাঠিয়ে দেবেন। ধন্যবাদ!";
+                } else if (text.includes("account rules") || text.includes("rule") || text.includes("terms")) {
+                    response = "To see our full Terms and Privacy Policy, <b style='cursor:pointer; color:var(--system-blue)' onclick='showTerms()'>Click Here</b>.<br><br>Quick rules: 1. Age 18+ <p>2. No fake screenshots</p> <p>3. No illegal money</p> <p>4. Wrong info = your responsibility</p>";
+                } else if (text.includes("support") || text.includes("help")) {
+                    response = "Use WhatsApp or Telegram buttons below to contact our Support Center directly.";
+                }
+                
+                addMessage(response, 'bot-msg');
+            }, 600);
+        }
+
+        function addMessage(text, className) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${className}`;
+            msgDiv.innerHTML = text;
+            chatBody.appendChild(msgDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        userInput.addEventListener("keypress", (e) => { 
+            if (e.key === "Enter") sendMessage(); 
+        });
+    </script>
+</body>
+</html>
